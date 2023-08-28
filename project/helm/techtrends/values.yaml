@@ -1,5 +1,4 @@
-namespace:
-  name: sandbox
+namespace: sandbox
 service:
   port: 4111
   targetPort: 3111
