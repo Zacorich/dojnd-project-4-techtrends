@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./techtrends/ .
 
 # define command to run when container starts
-CMD ["python", "init_db.py"] && ["python", "app.py"]
+CMD sh -c "python init_db.py && python app.py"
 
 # open networking port 3111
 EXPOSE 3111
