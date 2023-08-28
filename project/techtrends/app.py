@@ -5,9 +5,12 @@ from werkzeug.exceptions import abort
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
+db_connection_count = 0
 def get_db_connection():
+    global db_connection_count
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
+    db_connection_count += 1
     return connection
 
 # Function to get a post using its ID
@@ -34,6 +37,17 @@ def index():
 def healthcheck():
     response = {
         "result": "OK - healthy"
+    }
+    return jsonify(response), 200
+
+@app.route('/metrics')
+def metrics():
+    connection = get_db_connection()
+    post_count = connection.execute('SELECT COUNT(*) FROM posts').fetchone()[0]
+    connection.close()
+    response = {
+        "db_connection_count": db_connection_count,
+        "post_count": post_count
     }
     return jsonify(response), 200
 
