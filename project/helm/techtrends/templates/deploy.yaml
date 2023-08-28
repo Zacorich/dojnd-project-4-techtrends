@@ -5,7 +5,13 @@ metadata:
   name: techtrends
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: techtrends
   template:
+    metadata:
+      labels:
+        app: techtrends
     spec:
       containers:
         - name: techtrends
