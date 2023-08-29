@@ -17,6 +17,8 @@ resources:
     memory: 128Mi
     cpu: 500m
 containerPort: 3111
+livenessPort: 3112
+readinessPort: 3113
 livenessProbe:
   path: /healthz
 readinessProbe:

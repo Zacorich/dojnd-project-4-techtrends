@@ -1,9 +1,19 @@
 import sqlite3
-
+import sys
+import logging
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
-import logging
-logging.basicConfig(level=logging.DEBUG, format='%(levelname)s:%(name)s:%(asctime)s, %(message)s')
+
+
+
+# set logger to handle STDOUT and STDERR
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setLevel(logging.DEBUG)
+stderr_handler = logging.StreamHandler(sys.stderr)
+stderr_handler.setLevel(logging.WARNING)
+handlers = [stderr_handler, stdout_handler]
+logger_format = '%(levelname)s:%(name)s:%(asctime)s, %(message)s'
+logging.basicConfig(format=logger_format, level=logging.DEBUG, handlers=handlers)
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
